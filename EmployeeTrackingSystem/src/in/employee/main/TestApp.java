@@ -2,8 +2,10 @@ package in.employee.main;
 
 
 import java.io.*;
+import java.util.LinkedHashMap;
 
 import in.employee.entities.Address;
+import in.employee.entities.Employee;
 import in.employee.entities.Manager;
 
 public class TestApp {
@@ -25,11 +27,11 @@ public class TestApp {
 				project_name, address, department_name,
 				no_individuals_reporting, timeSheet_begin, timeSheet_end);
 		
-		
+		LinkedHashMap hm = new LinkedHashMap();
 		System.out.println("Choose 1 =>TO INSERT EMPLOYEES || 2=> TO SELECT EMPLOYEES || 3=> TO UPDATE EMPLOYEES || 4=> TO DELETE EMPLOYEES");
 		System.out.println("Give choice::");
 		int option=Integer.parseInt(br.readLine());
-		
+
 		
 		
 		switch(option) {
@@ -42,7 +44,10 @@ public class TestApp {
 							no_individuals_reporting=Integer.parseInt(br.readLine());
 							m.setNo_individuals_reporting(no_individuals_reporting);
 							
+							Employee e[]=new Employee[no_individuals_reporting];
 							//Creating Dependent Object
+							
+							for(int i=0;i<no_individuals_reporting;i++) {
 							System.out.print("Enter the zip_code of Employee:: ");
 							zip_code = Integer.parseInt(br.readLine());
 							address.setZip_code(zip_code);
@@ -103,9 +108,14 @@ public class TestApp {
 							m.setTimeSheet_end(timeSheet_end);
 							
 							System.out.println("Inserted Employees ::");
-							
+							hm.put(empid, employee_name);
+							e[i]=new Employee(empid, employee_name,employee_email,employee_phone,
+									project_name, address);
+							}
+							System.out.println(hm);
+							for(int i=0;i<e.length;i++) {
 								m.viewManager();
-							
+							}
 							break;
 							
 							
@@ -215,7 +225,8 @@ public class TestApp {
 				default: System.out.println("Do you want to exit?Type Y/N")	;
 						String ans=br.readLine();
 						if(ans=="Y"||ans=="y")
-							break;
+							System.exit(0);
+						break;
 						
 							
 									
